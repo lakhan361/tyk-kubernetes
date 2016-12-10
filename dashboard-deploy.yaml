@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: tyk-dashboard
+  name: tyk-dashboard
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tyk-dashboard
+    spec:
+      containers:
+      - name: tyk-dashboard
+        image: tykio/tyk-dashboard:v1.3
+        ports:
+        - containerPort: 5000
+        - containerPort: 3000

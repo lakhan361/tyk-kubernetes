@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: tyk-gateway
+  labels:
+    name: tyk-gateway
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: tyk-gateway
+    spec:
+      containers:
+      - name: tyk-gateway
+        image: tykio/tyk-gateway:v2.3.0.31
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: gateway-git
+          mountPath: /config
+        command:
+        - "/opt/tyk-gateway/tyk"
+        - "--conf=/config/tyk-gateway-docker/tyk.with_dashboard.conf"
+        - "--debug"
+      volumes:
+      - name: gateway-git
+        gitRepo:
+          repository: "https://github.com/lonelycode/tyk-gateway-docker"
+          revision: "44784107080de35f53e947b86d9c4c1149f93e8f"

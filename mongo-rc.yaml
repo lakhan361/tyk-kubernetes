@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: mongo
+  name: mongo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: tyk-mongo
+    spec:
+      containers:
+      - image: mongo
+        name: tyk-mongo
+        ports:
+        - name: mongo
+          containerPort: 27017
+          hostPort: 27017
+        volumeMounts:
+        - name: tyk-mongo-presistent-storage
+          mountPath: /data/db
+      volumes:
+      - name: tyk-mongo-presistent-storage
+        hostPath:
+          path: /data/tyk-mongo
