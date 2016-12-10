@@ -1,14 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tyk-dashboard-lb
+  name: tyk-dashboard
   labels:
     name: tyk-dashboard
 spec:
-  type: LoadBalancer
   ports:
-  - name: tyk-dashboard
+  - name: websocket
     port: 5000
-    protocol: TCP
-selector:
-  app: tyk-dashboard
+    targetPort: 5000
+  - name: dashboard
+    port: 3000
+    targetPort: 3000
+  selector:
+    name: tyk-dashboard

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: tyk-dashboard
+  name: tyk-dashboard
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: tyk-dashboard
+    spec:
+      containers:
+      - name: tyk-dashboard
+        image: tykio/tyk-dashboard:v1.3
+        ports:
+        - containerPort: 5000
+        - containerPort: 3000
+        volumeMounts:
+        - name: dashboard-git
+          mountPath: /config
+        command:
+        - "/opt/tyk-dashboard/tyk-analytics"
+        - "--conf=/config/tyk-kubernetes/dashboard.json"
+        - "--debug"
+      volumes:
+      - name: dashboard-git
+        gitRepo:
+          repository: "https://github.com/tonyhhyip/tyk-kubernetes"

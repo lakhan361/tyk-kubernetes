@@ -21,10 +21,9 @@ spec:
           mountPath: /config
         command:
         - "/opt/tyk-gateway/tyk"
-        - "--conf=/config/tyk-gateway-docker/tyk.with_dashboard.conf"
+        - "--conf=/config/tyk-kubernetes/gateway.json"
         - "--debug"
       volumes:
       - name: gateway-git
         gitRepo:
-          repository: "https://github.com/lonelycode/tyk-gateway-docker"
-          revision: "44784107080de35f53e947b86d9c4c1149f93e8f"
+          repository: "https://github.com/tonyhhyip/tyk-kubernetes"
